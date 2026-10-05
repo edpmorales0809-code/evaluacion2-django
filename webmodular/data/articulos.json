@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "titulo": "venezuela 3-0 chile",
+        "contenido": "Se ha lanzado una nueva IA que ayuda a programadores a desarrollar aplicaciones web más rápido y sin errores.",
+        "imagen": "img/noticia2.jpg"
+    },
+    {
+        "id": 2,
+        "titulo": "Avances en ciberseguridad",
+        "contenido": "Expertos descubren nuevas vulnerabilidades en sistemas antiguos, obligando a las empresas a actualizar sus servidores.",
+        "imagen": "img/noticia1.jpg"
+    }
+]

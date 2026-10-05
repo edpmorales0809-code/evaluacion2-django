@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Sitio Modular</title>
+    
+    <!-- Referencia al archivo CSS de Bootstrap local -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Inicio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <!-- Enlaces hacia las dos aplicaciones -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/noticias/">Noticias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/productos/">Productos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Encabezado -->
+    <header class="bg-primary text-white text-center py-4">
+        <div class="container">
+            <h1>Bienvenido al Portal Informativo</h1>
+            <p class="lead">Explora nuestras secciones de Noticias y Productos</p>
+        </div>
+    </header>
+
+    <!-- Contenedor principal donde se inyectará el contenido de las otras páginas -->
+    <main class="container flex-grow-1 mt-4">
+        {% block contenido %}
+        <!-- Las plantillas que hereden de base.html insertarán su código aquí -->
+        {% endblock %}
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="bg-dark text-white text-center py-3 mt-4">
+        <div class="container">
+            <p class="mb-0">Desarrollado para Evaluación Sumativa 1 - Programación Back End</p>
+        </div>
+    </footer>
+    
+    <!-- Referencia al archivo JS de Bootstrap local -->
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

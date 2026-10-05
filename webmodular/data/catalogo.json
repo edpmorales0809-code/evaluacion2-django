@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "nombre": "Teclado Mecánico RGB",
+        "precio": 45000,
+        "descripcion": "Teclado ideal para programadores y gamers, con switches azules.",
+        "imagen": "img/producto1.jpg"
+    },
+    {
+        "id": 2,
+        "nombre": "Monitor Curvo 27 pulgadas",
+        "precio": 120000,
+        "descripcion": "Monitor con resolución 2K para máxima productividad.",
+        "imagen": "img/producto2.jpg"
+    }
+]

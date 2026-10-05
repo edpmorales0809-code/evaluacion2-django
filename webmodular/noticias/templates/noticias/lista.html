@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>Últimas Noticias</h2>
+        <a href="/noticias/info/" class="btn btn-outline-primary btn-sm">Ver información de la sección</a>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Iteramos sobre los datos enviados desde views.py -->
+    {% for noticia in noticias %}
+    <div class="col-md-6 mb-4">
+        <div class="card h-100 shadow-sm">
+            <!-- Cargamos la imagen desde la carpeta static -->
+            <img src="{% static noticia.imagen %}" class="card-img-top" alt="{{ noticia.titulo }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ noticia.titulo }}</h5>
+                <p class="card-text">{{ noticia.contenido }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
