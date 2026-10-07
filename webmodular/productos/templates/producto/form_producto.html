@@ -1,0 +1,17 @@
+{% extends 'producto/base.html' %}
+
+{% block contenido %}
+<h2 class="mb-4">Formulario de Producto</h2>
+
+<!-- EL ENCTYPE ES OBLIGATORIO PARA SUBIR FOTOS -->
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <div class="mb-3">
+        {{ form.as_p }}
+    </div>
+    
+    <button type="submit" class="btn btn-success">Guardar Producto</button>
+    <a href="{% url 'listar_productos' %}" class="btn btn-secondary">Cancelar y Volver</a>
+</form>
+{% endblock %}

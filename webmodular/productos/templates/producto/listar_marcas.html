@@ -1,0 +1,63 @@
+{% extends 'producto/base.html' %}
+
+{% block contenido %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Lista de Marcas</h2>
+    <!-- IMPORTANTE: Cambia 'crear_marca' por el nombre real de tu url si es distinto -->
+    {% if perms.productos.add_marca %}
+    <a href="#" class="btn btn-primary">+ Nueva Marca</a> 
+{% endif %}
+</div>
+
+<!-- Barra de Búsqueda -->
+<form method="GET" class="d-flex mb-4">
+    <input class="form-control me-2" type="search" name="buscar" placeholder="Buscar marca por nombre..." value="{{ request.GET.buscar }}">
+    <button class="btn btn-outline-success" type="submit">Buscar</button>
+    <a href="{% url 'listar_marcas' %}" class="btn btn-outline-secondary ms-2">Limpiar</a>
+</form>
+
+<!-- Tabla de Marcas -->
+<table class="table table-striped table-hover align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Catálogo (PDF)</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for m in marcas %}
+        <tr>
+            <td>{{ m.id }}</td>
+            <td>{{ m.nombre }}</td>
+            <td>{{ m.descripcion }}</td>
+            
+            <!-- Columna del PDF -->
+            <td>
+                {% if m.catalogo %}
+                    <a href="{{ m.catalogo.url }}" target="_blank" class="btn btn-sm btn-outline-danger">
+                        📄 Ver PDF
+                    </a>
+                {% else %}
+                    <span class="badge bg-secondary">Sin documento</span>
+                {% endif %}
+            </td>
+            
+            <!-- Botones de Acción -->
+            <!-- Botones de Acción -->
+<td>
+    {% if perms.productos.change_marca %}
+        <a href="{% url 'modificar_marca' m.id %}" class="btn btn-sm btn-warning">Modificar</a>
+    {% endif %}
+
+    {% if perms.productos.delete_marca %}
+        <a href="{% url 'eliminar_marca' m.id %}" class="btn btn-sm btn-danger">Eliminar</a>
+    {% endif %}
+</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

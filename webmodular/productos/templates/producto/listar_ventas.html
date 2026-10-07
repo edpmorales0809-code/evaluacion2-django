@@ -1,0 +1,38 @@
+{% extends 'base.html' %} <!-- Cambia 'base.html' si tu plantilla principal tiene otro nombre -->
+
+{% block contenido %} <!-- Cambia 'contenido' por el nombre del bloque que uses en tu base.html -->
+<div class="container mt-4">
+    <h2 class="mb-4">📋 Listado de Ventas</h2>
+    
+    <!-- Botón Agregar -->
+    <a href="{% url 'crear_venta' %}" class="btn btn-success mb-3">+ Registrar Nueva Venta</a>
+
+    <!-- Tabla Bootstrap -->
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Producto Vendido</th>
+                <th>Cantidad</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for v in ventas %}
+            <tr>
+                <td>{{ v.id }}</td>
+                <td>{{ v.producto.nombre }}</td>
+                <td>{{ v.cantidad }}</td>
+                <td>{{ v.fecha_venta|date:"d/m/Y" }}</td>
+                <td>
+                    <!-- Botones Modificar y Eliminar -->
+                    <a href="{% url 'modificar_venta' v.id %}" class="btn btn-sm btn-warning">Modificar</a>
+                    <a href="{% url 'eliminar_venta' v.id %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

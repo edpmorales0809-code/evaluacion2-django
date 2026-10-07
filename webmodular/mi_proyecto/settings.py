@@ -1,3 +1,4 @@
+import os
 """
 Django settings for mi_proyecto project.
 
@@ -31,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'drf_yasg',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'noticias',
     'productos',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -126,4 +129,25 @@ MAILERS = {
     'default': {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
+}
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# A dónde ir después de iniciar sesión (ajusta la ruta si la tuya es distinta)
+LOGIN_REDIRECT_URL = '/productos/productos/' 
+
+# A dónde ir después de cerrar sesión
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+# Configuración para habilitar el botón "Authorize" en Swagger
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    }
 }

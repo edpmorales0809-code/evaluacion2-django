@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Marca</title>
+</head>
+<body>
+    <h1>Formulario de Marca</h1>
+    
+    <form method="POST">
+        <!-- El csrf_token es obligatorio por seguridad en Django -->
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+        <button type="submit">Guardar Marca</button>
+        <a href="{% url 'listar_marcas' %}">Cancelar y Volver</a>
+    </form>
+</body>
+</html>

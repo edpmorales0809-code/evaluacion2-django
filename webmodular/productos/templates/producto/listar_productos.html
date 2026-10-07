@@ -1,0 +1,63 @@
+{% extends 'producto/base.html' %}
+
+{% block contenido %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Lista de Productos</h2>
+    <a href="#" class="btn btn-primary">+ Nuevo Producto</a> <!-- Asegúrate de poner tu URL correcta aquí si la tienes -->
+</div>
+
+<!-- Barra de Búsqueda -->
+<form method="GET" class="d-flex mb-4">
+    <input class="form-control me-2" type="search" name="buscar" placeholder="Buscar producto por nombre..." value="{{ request.GET.buscar }}">
+    <button class="btn btn-outline-success" type="submit">Buscar</button>
+    <a href="{% url 'listar_productos' %}" class="btn btn-outline-secondary ms-2">Limpiar</a>
+</form>
+
+<!-- Tabla de Productos -->
+<table class="table table-striped table-hover align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Foto</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Marca</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in productos %}
+        <tr>
+            <!-- Columna de la Foto -->
+            <td>
+                {% if p.foto %}
+                    <img src="{{ p.foto.url }}" alt="{{ p.nombre }}" width="60" height="60" style="object-fit: cover; border-radius: 8px;">
+                {% else %}
+                    <span class="badge bg-secondary">Sin foto</span>
+                {% endif %}
+            </td>
+            
+            <td>{{ p.nombre }}</td>
+            <td>${{ p.precio }}</td>
+            <td>
+                {% if p.stock > 0 %}
+                    <span class="badge bg-success">{{ p.stock }} en stock</span>
+                {% else %}
+                    <span class="badge bg-danger">AGOTADO</span>
+                {% endif %}
+            </td>
+            <td>{{ p.marca.nombre }}</td>
+            
+            <!-- Botones de Acción -->
+            <td>
+                <!-- Aquí van tus botones de Modificar, Eliminar y Comprar -->
+                <!-- Ejemplo (Asegúrate de usar tus nombres de URL correctos): -->
+                <button class="btn btn-sm btn-success">Comprar 1</button>
+                <button class="btn btn-sm btn-warning">Modificar</button>
+                <button class="btn btn-sm btn-danger">Eliminar</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

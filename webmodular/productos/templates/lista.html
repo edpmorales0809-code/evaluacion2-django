@@ -5,7 +5,7 @@
 <div class="row mb-4">
     <div class="col">
         <h2>Catálogo de Productos</h2>
-        <a href="/productos/info/" class="btn btn-outline-success btn-sm">Políticas de la tienda</a>
+        <a href="/producto/info/" class="btn btn-outline-success btn-sm">Políticas de la tienda</a>
     </div>
 </div>
 
@@ -13,7 +13,7 @@
     {% for producto in productos %}
     <div class="col-md-6 mb-4">
         <div class="card h-100 border-success shadow-sm">
-            <img src="{% static producto.imagen %}" class="card-img-top" alt="{{ producto.nombre }}">
+            <img src="{% static productos.imagen %}" class="card-img-top" alt="{{ producto.nombre }}">
             <div class="card-body">
                 <h5 class="card-title text-success">{{ producto.nombre }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Precio: ${{ producto.precio }}</h6>

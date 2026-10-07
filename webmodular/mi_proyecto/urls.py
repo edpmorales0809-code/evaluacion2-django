@@ -1,14 +1,24 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.shortcuts import redirect
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
 
-# Pequeña función para redirigir la página de inicio directamente a las noticias
-def inicio(request):
-    return redirect('/noticias/')
+# Configuración visual de la página de Swagger
+schema_view = get_schema_view(
+    openapi.Info(
+        title="API Evaluación 3",
+        default_version='v1',
+        description="Documentación interactiva de la API",
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', inicio, name='inicio'), # Actúa como punto de entrada
-    path('noticias/', include('noticias.urls')), # Vincula la app noticias
-    path('productos/', include('productos.urls')), # Vincula la app productos
+    path('productos/', include('productos.urls')),
+    
+    # Rutas para ver la documentación de Swagger
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]

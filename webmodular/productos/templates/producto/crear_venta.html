@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+<div class="container mt-4">
+    <div class="card shadow p-4" style="max-width: 500px; margin: auto;">
+        <h2 class="mb-3">🛒 Registrar Venta</h2>
+        
+        <form method="POST">
+            {% csrf_token %}
+            <!-- Renderiza el formulario generado en forms.py -->
+            {{ form.as_p }}
+            
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary">Guardar Venta</button>
+                <a href="{% url 'listar_ventas' %}" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
