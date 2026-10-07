@@ -1,60 +1,60 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Sitio Modular</title>
-    
-    <!-- Referencia al archivo CSS de Bootstrap local -->
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <title>{% block title %}Gestión Modular{% endblock %}</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .navbar-brand { font-weight: 700; letter-spacing: 0.5px; }
+        .card { border-radius: 12px; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+        .table-hover tbody tr:hover { background-color: #f1f5f9; }
+    </style>
 </head>
-<body class="d-flex flex-column min-vh-100">
-
-    <!-- Barra de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="/">Inicio</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <a class="navbar-brand" href="/productos/">
+                <i class="bi bi-cpu-fill text-primary me-2"></i>TechStore
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <!-- Enlaces hacia las dos aplicaciones -->
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="/noticias/">Noticias</a>
+                        <a class="nav-link" href="/productos/"><i class="bi bi-box-seam me-1"></i>Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/productos/">Productos</a>
+                        <a class="nav-link" href="/noticias/"><i class="bi bi-newspaper me-1"></i>Noticias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/productos/ventas/"><i class="bi bi-receipt me-1"></i>Ventas</a>
                     </li>
                 </ul>
+                <div class="d-flex align-items-center gap-2">
+                    {% if user.is_authenticated %}
+                        <span class="navbar-text me-2 text-light"><i class="bi bi-person-circle me-1"></i>{{ user.username }}</span>
+                        <a href="/admin/logout/" class="btn btn-outline-danger btn-sm">Salir</a>
+                    {% else %}
+                        <a href="/admin/login/" class="btn btn-primary btn-sm">Ingresar</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </nav>
-    
-    <!-- Encabezado -->
-    <header class="bg-primary text-white text-center py-4">
-        <div class="container">
-            <h1>Bienvenido al Portal Informativo</h1>
-            <p class="lead">Explora nuestras secciones de Noticias y Productos</p>
-        </div>
-    </header>
 
-    <!-- Contenedor principal donde se inyectará el contenido de las otras páginas -->
-    <main class="container flex-grow-1 mt-4">
-        {% block contenido %}
-        <!-- Las plantillas que hereden de base.html insertarán su código aquí -->
-        {% endblock %}
+    <main class="container py-4">
+        {% block content %}{% endblock %}
+        {% block contenido %}{% endblock %}
     </main>
 
-    <!-- Pie de página -->
-    <footer class="bg-dark text-white text-center py-3 mt-4">
-        <div class="container">
-            <p class="mb-0">Desarrollado para Evaluación Sumativa 1 - Programación Back End</p>
-        </div>
-    </footer>
-    
-    <!-- Referencia al archivo JS de Bootstrap local -->
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

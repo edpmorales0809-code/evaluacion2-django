@@ -1,16 +1,36 @@
-import json
-import os
-from django.conf import settings
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .models import Producto, Venta
+from .forms import VentaForm
 
-# Vista 1: Lee el JSON y muestra el catálogo
+# Vista principal del catálogo de productos
 def lista_productos(request):
-    ruta_json = os.path.join(settings.BASE_DIR, 'data', 'catalogo.json')
-    
-    with open(ruta_json, 'r', encoding='utf-8') as archivo:
-        datos = json.load(archivo)
-        
-    return render(request, 'productos/lista.html', {'productos': datos})
+    buscar = request.GET.get('buscar', '')
+    if buscar:
+        productos = Producto.objects.filter(nombre__icontains=buscar)
+    else:
+        productos = Producto.objects.all()
+    return render(request, 'productos/lista.html', {'productos': productos})
 
+# Vista de información
 def info_productos(request):
     return render(request, 'productos/info.html')
+
+# Vista para registrar y listar ventas
+def registrar_venta(request):
+    if request.method == 'POST':
+        form = VentaForm(request.POST)
+        if form.is_valid():
+            venta = form.save(commit=False)
+            producto = venta.producto
+            if producto.stock >= venta.cantidad:
+                producto.stock -= venta.cantidad
+                producto.save()
+                venta.save()
+                return redirect('/productos/ventas/')
+            else:
+                form.add_error('cantidad', f'Stock insuficiente. Solo quedan {producto.stock} unidades.')
+    else:
+        form = VentaForm()
+
+    ventas = Venta.objects.all().order_by('-fecha')
+    return render(request, 'productos/ventas.html', {'form': form, 'ventas': ventas})
