@@ -10,6 +10,7 @@ router.register(r'productos', ProductoViewSet)
 router.register(r'ventas', VentaViewSet)
 
 urlpatterns = [
+<<<<<<< HEAD
     # --- Rutas de la Evaluación 2 (Tu página web original) ---
     path('marcas/', views.listar_marcas, name='listar_marcas'),
     path('crear-marca/', views.crear_marca, name='crear_marca'),
@@ -29,4 +30,9 @@ urlpatterns = [
 
     # --- Rutas de la Evaluación 3 (Tu nueva API RESTful) ---
     path('api/', include(router.urls)),
+=======
+    path('', views.lista_productos, name='lista_productos'),
+    path('info/', views.info_productos, name='info_productos'),
+    path('ventas/', views.registrar_venta, name='ventas'),
+>>>>>>> 2228d9bb49f02df33e73c48eccaeac1cdc4c62bd
 ]
