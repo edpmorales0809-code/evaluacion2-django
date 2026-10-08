@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Marca, Producto, Venta
-from .forms import MarcaForm, ProductoForm, VentaForm
+from .forms import MarcaForm, ProductoForm
 from rest_framework import viewsets
 from .serializers import (
     MarcaSerializer, 

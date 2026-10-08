@@ -125,6 +125,17 @@ SWAGGER_SETTINGS = {
     }
 }
 
+# --- CONFIGURACIÓN DE REST FRAMEWORK ---
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+}
+
 # --- PARCHES PARA COMPATIBILIDAD CON XAMPP (MARIADB 10.4) ---
 from django.db.backends.mysql.base import DatabaseWrapper
 DatabaseWrapper.check_database_version_supported = lambda self: True
