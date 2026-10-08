@@ -1,31 +1,37 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import RedirectView  # <-- 1. Importamos la vista de redirección
+from django.views.generic import RedirectView
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
-# Configuración visual de la página de Swagger
+# Configuración de Swagger con soporte para JWT (Authorize)
 schema_view = get_schema_view(
-    openapi.Info(
-        title="API Evaluación 3",
-        default_version='v1',
-        description="Documentación interactiva de la API",
-    ),
-    public=True,
-    permission_classes=(permissions.AllowAny,),
+   openapi.Info(
+      title="API Evaluación 3",
+      default_version='v1',
+      description="Documentación interactiva de la API con JWT",
+   ),
+   public=True,
+   permission_classes=(permissions.AllowAny,),
 )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('productos/', include('productos.urls')),
     
-    # 👇 ESTA ES LA LÍNEA QUE DEBES ASEGURARTE DE AGREGAR 👇
-    path('noticias/', include('noticias.urls')), 
+    # --- ENDPOINTS DE AUTENTICACIÓN JWT (Obligatorios según la pauta) ---
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     
-    # Rutas para ver la documentación de Swagger
+    # --- DOCUMENTACIÓN SWAGGER Y REDOC ---
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     
-    # Redirección de la página principal hacia productos
+    # --- REDIRECCIÓN PRINCIPAL ---
     path('', RedirectView.as_view(url='/productos/', permanent=True)),
 ]

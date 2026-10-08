@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 """
 Django settings for mi_proyecto project.
 
@@ -30,6 +31,7 @@ INSTALLED_APPS = [
     'noticias',
     'productos',
     'rest_framework',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -114,7 +116,7 @@ LOGIN_URL = '/admin/login/'
 LOGIN_REDIRECT_URL = '/productos/' 
 LOGOUT_REDIRECT_URL = '/admin/login/'
 
-# Configuración para habilitar el botón "Authorize" en Swagger
+# Configuración para habilitar el botón "Authorize" en Swagger con JWT
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
         'Bearer': {
@@ -125,15 +127,23 @@ SWAGGER_SETTINGS = {
     }
 }
 
-# --- CONFIGURACIÓN DE REST FRAMEWORK ---
+# --- CONFIGURACIÓN DE REST FRAMEWORK CON JWT ---
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
+}
+
+# --- CONFIGURACIÓN DE SIMPLE_JWT ---
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
 # --- PARCHES PARA COMPATIBILIDAD CON XAMPP (MARIADB 10.4) ---
