@@ -1,10 +1,4 @@
 from django.contrib import admin
-<<<<<<< HEAD
-from .models import Marca, Producto
-
-admin.site.register(Marca)
-admin.site.register(Producto)
-=======
 from .models import Marca, Producto, Venta
 
 @admin.register(Marca)
@@ -20,6 +14,5 @@ class ProductoAdmin(admin.ModelAdmin):
 
 @admin.register(Venta)
 class VentaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'producto', 'cantidad', 'fecha')
-    list_filter = ('fecha',)
->>>>>>> 2228d9bb49f02df33e73c48eccaeac1cdc4c62bd
+    list_display = ('id', 'producto', 'cantidad', 'fecha_venta')
+    list_filter = ('fecha_venta',)
